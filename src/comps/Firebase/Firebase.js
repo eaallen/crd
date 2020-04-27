@@ -5,15 +5,14 @@ import React from 'react'
 export const AppContext = React.createContext()
 
     const config = {
-      // your config info here
-      // apiKey: ,
-      // authDomain: ,
-      // databaseURL: ,
-      // projectId: ,
-      // storageBucket: ,
-      // messagingSenderId: ,
-      // appId:,
-      // measurementId: 
+      apiKey: "AIzaSyBNqOn-qUE1KbHriylJy_KWLXy8GnyC0mM",
+      authDomain: "custom-ring-design.firebaseapp.com",
+      databaseURL: "https://custom-ring-design.firebaseio.com",
+      projectId: "custom-ring-design",
+      storageBucket: "custom-ring-design.appspot.com",
+      messagingSenderId: "401445854653",
+      appId: "1:401445854653:web:7aebdf9d897da9047946d4",
+      measurementId: "G-0V6YPGB45G"
     };
    
     class Firebase extends React.Component {
