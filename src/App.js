@@ -33,10 +33,10 @@ function App(props) {
                 <Route path='/NewCustomer'>
                   <NewCustomer/>
                 </Route>
-                <Route path='/CusomerDetail'>
+                <Route path='/CustomerDetail'>
                   <CustomerDetail/>
                 </Route>
-                <Route path='/AllCutomer'>
+                <Route path='/AllCustomer'>
                   <AllCustomer/>
                 </Route>
                 <Route path='/'>

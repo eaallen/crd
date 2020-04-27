@@ -31,7 +31,12 @@
   margin-left: 35%;
   margin-right: 35%;
 }
-
+.side-bar{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
