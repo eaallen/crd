@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {withFirebase} from './comps/Firebase'
 import {
@@ -14,6 +13,7 @@ import AllCustomer from './comps/Views/AllCustomer';
 import CustomerDetail from './comps/Views/CustomerDetail';
 import NewCustomer from './comps/Views/NewCustomer';
 import EditCustomer from './comps/Views/EditCustomer';
+import SignIn from './comps/Views/SignIn'
 function App(props) {
   return (
     <div>
@@ -40,7 +40,7 @@ function App(props) {
                   <AllCustomer/>
                 </Route>
                 <Route path='/'>
-                  Sign in
+                  <SignIn/>
                 </Route>
               </Switch>
             </Router>

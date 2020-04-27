@@ -1,10 +1,16 @@
 import React from 'react'
-
-export default function SignIn(props){
-    
+import SignInForm from '../Form/SignInForm'
+import {withFirebase} from '../Firebase'
+function SignInBase(props){
+    let user = props.context.user() 
+    console.log('user info',user)
     return(
         <div>
-            SignIn
+            <div className='form'>
+                <SignInForm/>       
+            </div>              
         </div>
     )
 }
+const SignIn = withFirebase(SignInBase)
+export default SignIn

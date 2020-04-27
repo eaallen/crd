@@ -38,10 +38,11 @@ export const AppContext = React.createContext()
           this.state = {
             test:'this is comming from the firbase context provider',
             loading: null,
+            con: app.initializeApp(config)
             // user: null
           }
           console.log('here')
-          app.initializeApp(config);
+          // app.initializeApp(config);
 
           this.auth = app.auth();
           this.db = app.firestore()
@@ -49,8 +50,10 @@ export const AppContext = React.createContext()
           this.auth.onAuthStateChanged(function(user) {
             if (user){
               console.log('we have a user!')
+              return user
             }else{
               console.log('no user... :(')
+              return null
             }    
           });
         }
@@ -95,6 +98,13 @@ export const AppContext = React.createContext()
       // STUFF YOU DO RIGHT AT THE BEGINING 
       }
         render(){
+          if(!this.state.con){
+            return(
+              <div>
+                loding
+              </div>
+            )
+          }
           return(
             <AppContext.Provider value={{...this.state, ...this.actions }}>
               {this.props.children}
