@@ -17,7 +17,7 @@ import SignIn from './comps/Views/SignIn'
 function App(props) {
   return (
     <div>
-      <Container fluid>
+      
         <Row noGutters>
           <Col>
             <Top/>
@@ -46,7 +46,7 @@ function App(props) {
             </Router>
           </Col>
         </Row>
-      </Container>
+      
     </div>
   );
 }

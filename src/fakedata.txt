@@ -1,0 +1,116 @@
+          
+          let querySnapshot = await this.db.collection('customers').get()
+          querySnapshot.forEach(doc=>{
+            let tasks = this.db.collection(`customers/${doc.id}/tasks`)
+            tasks.add({
+              start_date:firebase.firestore.Timestamp.fromDate(new Date("December 10, 1815")),
+              end_date:firebase.firestore.Timestamp.fromDate(new Date("December 12, 1815")),
+              charge:"$20.00",
+              task_desc:'cleaning',
+            })
+            tasks.add({
+              start_date:firebase.firestore.Timestamp.fromDate(new Date("August 20, 1830")),
+              end_date:firebase.firestore.Timestamp.fromDate(new Date("September 1, 1830")),
+              charge:"$100.00",
+              task_desc:'repair',
+            })
+          })
+          let cust = this.db.collection("customers")
+          
+          cust.add({
+            first_name: "San",
+            last_name: "Francisco",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Jo",
+            last_name: "ipsom",
+            phone_number: "113 323 5675",
+            email_address: 'jo@fake.come',
+          })
+          cust.add({
+            first_name: "Sam",
+            last_name: "Crow",
+            phone_number: "103 321 1232",
+            email_address: 'Crow@fake.come',
+          })
+          cust.add({
+            first_name: "let",
+            last_name: "cet",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Jim",
+            last_name: "Fred",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "George",
+            last_name: "The Third",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({    
+            first_name: "Random",
+            last_name: "Francisco",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Sebastian ",
+            last_name: "Escobar",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Dominika",
+            last_name: "Davison",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Nikolas",
+            last_name: "Peralta",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Yuvaan",
+            last_name: "Galindo",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Bob",
+            last_name: "Lees",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Melina",
+            last_name: "Rush",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Minahil",
+            last_name: "Woodley",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Otto",
+            last_name: "Lopez",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+          cust.add({
+            first_name: "Arun",
+            last_name: "Wilder",
+            phone_number: "123 321 1232",
+            email_address: 'san@fake.come',
+          })
+        }

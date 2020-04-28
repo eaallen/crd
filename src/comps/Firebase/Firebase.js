@@ -1,4 +1,5 @@
 import app from 'firebase/app';
+// import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
 import React from 'react' 
@@ -94,19 +95,19 @@ export const AppContext = React.createContext()
             console.log('neeto-taleeto')
 
 
-            await this.waitOnMe(doc,data,arr)
-            // await this.db.collection(`customers/${doc.id}/tasks`).get().then(querySnapshot=>{
-            //   console.log('theta')                
-            //   querySnapshot.forEach(function (doc1) {
-            //     let obj = doc1.data()
-            //     obj['task_id'] = doc1.id;
-            //     data.task_history = obj;
-            //   })            
-            //   arr.push(data)
-            //   console.log('yeeet----->', arr[0].task_history);           
-            //   console.log('GOVE__________V')
-            //   this.setState({...this.state, data:arr})
-            // })
+            // await this.waitOnMe(doc,data,arr)
+            await this.db.collection(`customers/${doc.id}/tasks`).get().then(querySnapshot=>{
+              console.log('theta')                
+              querySnapshot.forEach(function (doc1) {
+                let obj = doc1.data()
+                obj['task_id'] = doc1.id;
+                data.task_history = obj;
+              })            
+              arr.push(data)
+              console.log('yeeet----->', arr[0].task_history);           
+              console.log('GOVE__________V')
+              this.setState({...this.state, data:arr})
+            })
         })
         }
         waitOnMe=async(doc,data,arr)=>{
@@ -139,10 +140,15 @@ export const AppContext = React.createContext()
         loader=()=>{          
           this.setState({...this.state, loading:true})
         }
-      async componentDidMount(){ 
+        async loadFakeData(){
+          
+        }
+      async componentDidMount(){
+        
         console.log('beta')
         await this.doGetAllRecords('customers')   
         console.log('gamma')
+
       }
         render(){
           console.log('the state has changed me')
