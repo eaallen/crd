@@ -6,8 +6,8 @@ import * as ROUTE from '../../constanst/router'
 function AllCustomerbase(props){
     let data = props.context.data
     const hist = useHistory()
-    const link = () =>{
-        hist.push(ROUTE.DETIAL)
+    const link = (id) =>{
+        hist.push(`/CustomerDetail/${id}`)
     }
     console.log('<><><><task_history><><><.',data)
     return(
@@ -24,28 +24,28 @@ function AllCustomerbase(props){
                         <thead>
                             <tr>
                                 <th>
-                                    name
+                                    Name
                                 </th>
                                 <th>
-                                    last visit
+                                    Date of Last Visit
                                 </th>
                                 <th>
-                                    last task
+                                    Last Task Reiceved 
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             {data.map(customer=>{
                                 return(
-                                <tr key={customer.id} onClick={e=>link()}>
+                                <tr key={customer.id} onClick={e=>link(customer.id)}>
                                     <td>
                                         {customer.first_name} {customer.last_name}
                                     </td>
                                     <td>
-                                        {customer.task_history.start_date.toDate().toLocaleDateString()}
+                                        {customer.task_history[customer.task_history.length -1].start_date.toDate().toLocaleDateString()}
                                     </td>
                                     <td>
-                                        {customer.task_history.task_desc}
+                                        {customer.task_history[customer.task_history.length -1].task_desc}
                                     </td>
                                 </tr>
                             )})}

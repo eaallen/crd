@@ -27,6 +27,11 @@
 .App-link {
   color: #61dafb;
 }
+.content{
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+}
 .form{
   margin-left: 35%;
   margin-right: 35%;
@@ -37,6 +42,41 @@
   left: 0px;
   bottom: 0;
 }
+.box{
+  color:white;
+  /* background-color: #28378d; */
+  display: inline-block;
+  height: 150px;
+  width: 150px; 
+  margin-bottom: 1rem;
+}
+.cust-info{
+
+}
+.parent {
+  display: flex;
+}
+.narrow {
+  width: 200px;
+  
+}
+.wide {
+  flex: 1;
+  /* Grow to rest of container */
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

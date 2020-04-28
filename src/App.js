@@ -14,6 +14,8 @@ import CustomerDetail from './comps/Views/CustomerDetail';
 import NewCustomer from './comps/Views/NewCustomer';
 import EditCustomer from './comps/Views/EditCustomer';
 import SignIn from './comps/Views/SignIn'
+import * as ROUTE from './constanst/router'
+
 function App(props) {
   return (
     <div>
@@ -23,30 +25,31 @@ function App(props) {
             <Top/>
           </Col>
         </Row>
-        <Row noGutters>
-          <Col>
-            <Router>
-              <Switch>
-                <Route path='/EditCustomer'>
-                  <EditCustomer/>
-                </Route>
-                <Route path='/NewCustomer'>
-                  <NewCustomer/>
-                </Route>
-                <Route path='/CustomerDetail'>
-                  <CustomerDetail/>
-                </Route>
-                <Route path='/AllCustomer'>
-                  <AllCustomer/>
-                </Route>
-                <Route path='/'>
-                  <SignIn/>
-                </Route>
-              </Switch>
-            </Router>
-          </Col>
-        </Row>
-      
+        <div className='content'>
+          <Row noGutters >          
+            <Col>
+              <Router>
+                <Switch>
+                  <Route path='/EditCustomer/:id'>
+                    <EditCustomer/>
+                  </Route>
+                  <Route path='/NewCustomer'>
+                    <NewCustomer/>
+                  </Route>
+                  <Route path={ROUTE.DETAIL}>
+                    <CustomerDetail/>
+                  </Route>
+                  <Route path='/AllCustomer'>
+                    <AllCustomer/>
+                  </Route>
+                  <Route path='/'>
+                    <SignIn/>
+                  </Route>
+                </Switch>
+              </Router>
+            </Col>          
+          </Row>
+        </div>
     </div>
   );
 }

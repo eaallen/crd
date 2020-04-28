@@ -87,44 +87,26 @@ export const AppContext = React.createContext()
           let querySnapshot = await this.db.collection(_collection).get()
           let arr = []
           //for each 'key:value pair' . . . 
-          console.log(typeof querySnapshot)
-
-          querySnapshot.forEach(async(doc) => {
+          for(const doc of querySnapshot.docs){
             let data = doc.data();
             data['id'] = doc.id;
-            console.log('neeto-taleeto')
-
-
-            // await this.waitOnMe(doc,data,arr)
-            await this.db.collection(`customers/${doc.id}/tasks`).get().then(querySnapshot=>{
-              console.log('theta')                
-              querySnapshot.forEach(function (doc1) {
+            data.task_history= []
+           
+            await this.db.collection(`customers/${doc.id}/tasks`).get().then(task=>{
+             
+              for(const doc1 of task.docs){
                 let obj = doc1.data()
                 obj['task_id'] = doc1.id;
-                data.task_history = obj;
-              })            
+                data.task_history.push(obj)
+              }               
               arr.push(data)
-              console.log('yeeet----->', arr[0].task_history);           
-              console.log('GOVE__________V')
-              this.setState({...this.state, data:arr})
+             
             })
-        })
+           
+          }
+          this.setState({...this.state, data:arr})       
         }
-        waitOnMe=async(doc,data,arr)=>{
-         let querySnapshot = await this.db.collection(`customers/${doc.id}/tasks`).get()
-          console.log('theta')                
-          querySnapshot.forEach(function (doc1) {
-            let obj = doc1.data()
-            obj['task_id'] = doc1.id;
-            data.task_history = obj;
-          })            
-          arr.push(data)
-          console.log('yeeet----->', arr[0].task_history);           
-          console.log('GOVE__________V')
-          this.setState({...this.state, data:arr})      
-        // await setTimeout(alert('yeet'), 30000)          
-          console.log('awaited!')          
-        }
+        
         getOneRecord = (_collection, item_wanted) => this.db.collection(_collection).doc(item_wanted)
         checkState = async() =>{ await
           this.auth.onAuthStateChanged(function(user) {
