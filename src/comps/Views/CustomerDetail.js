@@ -24,10 +24,12 @@ function CustomerDetailBase(props){
                         <div className='box bg-primary'>
                             {customer.first_name.charAt(0)}
                         </div>
-                        <br/><br/>
-                        <Button block onClick={e=>edit(customer.id)}>
-                            Edit Profile
-                        </Button>
+                        <br/>
+                        <div style={{paddingLeft:'.25rem', paddingRight:'.25rem'}}>
+                            <Button block onClick={e=>edit(customer.id)}>
+                                Edit Profile
+                            </Button>
+                        </div>
                     </div>
                     <div className='cust-info wide'>
                         <div className='info parent'>
@@ -50,7 +52,7 @@ function CustomerDetailBase(props){
                         <div className='notes'>
                             <h6>Notes on {customer.first_name} {customer.last_name}</h6>
                             <p>
-                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci ve
+                                Nullam commodo eros ut commodo aliquam. Cras vestibulum accumsan bibendum. Morbi tristique massa a elit vehicula pellentesque. Nam iaculis posuere dui eu fermentum. Quisque in lectus leo. Aenean libero nunc, rutrum quis velit vel, tristique vulputate magna. Sed et lorem et lectus tempus dignissim.
                             </p>
                         </div>
                     </div>
