@@ -11,13 +11,14 @@ function CustomerDetailBase(props){
     let cust_id = match.params.id //id of the customer
     let [tasks, setTasks] = React.useState(null)
     //useEffect is similar to componentDidMount() basicaly I want get_task_info() to run only 
-    //when this component is mounted, other wise we get into a crazy endless loop  
+    //when this component is mounted, other wise we get into a crazy endless loop
+    //EXCEPT IT IS NOT GOOD TO DO IT THIS WAY! USE A CLASS COMPONENT INSTEAD... SORRY!!!  
     React.useEffect(()=>{
         async function get_task_info(id){
             let tasks = await props.context.doGetTaskByCustomerID('customers', id)
             // console.log('setState<><>',props.context.tasks_of_current_customer)
             // setTasks(props.context.tasks_of_current_customer)
-             setTasks(tasks)
+            setTasks(tasks)
         }
         
         get_task_info(cust_id)
