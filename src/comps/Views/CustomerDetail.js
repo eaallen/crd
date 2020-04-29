@@ -9,15 +9,13 @@ function CustomerDetailBase(props){
     let match = useRouteMatch("/CustomerDetail/:id");
     const hist = useHistory()
     let cust_id = match.params.id //id of the customer
-    let task_hist = null//props.context.tasks_of_current_customer
-    console.log('task_hist',task_hist)
     let [tasks, setTasks] = React.useState(null)
     //useEffect is similar to componentDidMount() basicaly I want get_task_info() to run only 
     //when this component is mounted, other wise we get into a crazy endless loop  
     React.useEffect(()=>{
         async function get_task_info(id){
             let tasks = await props.context.doGetTaskByCustomerID('customers', id)
-            console.log('setState<><>',props.context.tasks_of_current_customer)
+            // console.log('setState<><>',props.context.tasks_of_current_customer)
             // setTasks(props.context.tasks_of_current_customer)
              setTasks(tasks)
         }
