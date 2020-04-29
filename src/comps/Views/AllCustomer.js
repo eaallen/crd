@@ -6,6 +6,7 @@ import * as ROUTE from '../../constanst/router'
 function AllCustomerbase(props){
     let data = props.context.data
     const hist = useHistory()
+   
     const link = (id) =>{
         hist.push(`/CustomerDetail/${id}`)
     }
@@ -42,10 +43,10 @@ function AllCustomerbase(props){
                                         {customer.first_name} {customer.last_name}
                                     </td>
                                     <td>
-                                        {customer.task_history[customer.task_history.length -1].start_date.toDate().toLocaleDateString()}
+                                        {customer.last_in.toDate().toLocaleDateString()}
                                     </td>
                                     <td>
-                                        {customer.task_history[customer.task_history.length -1].task_desc}
+                                        {customer.recent_task}
                                     </td>
                                 </tr>
                             )})}

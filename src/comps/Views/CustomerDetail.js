@@ -4,17 +4,35 @@ import { useRouteMatch,useHistory} from "react-router-dom";
 import { Table, Button } from 'react-bootstrap';
 
 function CustomerDetailBase(props){
+    ////////SET UP/////////////////////////////////
     const data = props.context.data
-    // console.log('!!!!!__DATA__>>>',data)
     let match = useRouteMatch("/CustomerDetail/:id");
     const hist = useHistory()
     let cust_id = match.params.id //id of the customer
-    let customer = data.find(x=> x.id===cust_id)
-    console.log(customer,'<-----')
-
+    let task_hist = null//props.context.tasks_of_current_customer
+    console.log('task_hist',task_hist)
+    let [tasks, setTasks] = React.useState(null)
+    //useEffect is similar to componentDidMount() basicaly I want get_task_info() to run only 
+    //when this component is mounted, other wise we get into a crazy endless loop  
+    React.useEffect(()=>{
+        async function get_task_info(id){
+            let tasks = await props.context.doGetTaskByCustomerID('customers', id)
+            console.log('setState<><>',props.context.tasks_of_current_customer)
+            // setTasks(props.context.tasks_of_current_customer)
+             setTasks(tasks)
+        }
+        
+        get_task_info(cust_id)
+    }, [])
     const edit = (id) =>{
         hist.push(`/EditCustomer/${id}`)
     }
+
+    let customer = data.find(x=> x.id===cust_id)
+    console.log(customer,'<-----')
+    console.log('before')
+    // console.log('before',props.context.tasks_of_current_customer)
+    console.log('after',tasks)
 
     return(
         <div>
@@ -83,27 +101,39 @@ function CustomerDetailBase(props){
                             </tr>
                    </thead>
                    <tbody>
-                       {customer.task_history.map(task=>{
-                           return(
-                            <tr key={task.task_id}>
-                                <td>
-                                    {task.task_desc}
-                                </td>
-                                <td>
-                                    {task.start_date.toDate().toLocaleDateString()}
-                                </td>
-                                <td>
-                                    {task.end_date.toDate().toLocaleDateString()}
-                                </td>    
-                                <td>
-                                    {task.charge}
-                                </td>
-                                <td>
-                                    edit
-                                </td>
+                       {   
+                        tasks?
+                           <>
+                            {tasks.map(task=>{
+                                return(
+                                <tr key={task.id}>
+                                    <td>
+                                        {task.task_desc}
+                                    </td>
+                                    <td>
+                                        {task.start_date.toDate().toLocaleDateString()}
+                                    </td>
+                                    <td>
+                                        {task.end_date.toDate().toLocaleDateString()}
+                                    </td>    
+                                    <td>
+                                        {task.charge}
+                                    </td>
+                                    <td>
+                                        edit
+                                    </td>
+                                </tr>
+                            )
+                            })}                            
+                           </>
+                           :
+                           <>
+                            <tr>
+                                <td>loading</td>
                             </tr>
-                           )
-                       })}
+                           </>
+                       }
+                       
                    </tbody>
                </Table>
            </div>

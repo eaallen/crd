@@ -1,5 +1,5 @@
 import app from 'firebase/app';
-// import firebase from 'firebase'
+import firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
 import React from 'react' 
@@ -32,8 +32,9 @@ export const AppContext = React.createContext()
             doPasswordUpdate:this.doPasswordUpdate,
             doAddRecord:this.doAddRecord,
             doGetQueryRecord:this.doGetQueryRecord,
-            getOneRecord:this.getOneRecord,
+            doGetRecordByID:this.doGetRecordByID,
             doGetAllRecords: this.doGetAllRecords,
+            doGetTaskByCustomerID:this.doGetTaskByCustomerID,
             checkState: this.checkState,
             user: this.user,
           }
@@ -41,9 +42,10 @@ export const AppContext = React.createContext()
             test:'this is comming from the firbase context provider',
             loading: null,
             data: null,
+            tasks_of_current_customer: null,
             // user: null
           }
-          console.log('here')
+          // console.log('here')
           app.initializeApp(config);
           this.auth = app.auth();
           this.db = app.firestore()
@@ -79,9 +81,32 @@ export const AppContext = React.createContext()
         doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
         doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
         doAddRecord = (_collection) => this.db.collection(_collection).doc();
-        doGetQueryRecord = (_collection, item_looking_for,filtering_item) => this.db.collection(_collection).where(item_looking_for, '==',filtering_item).get();
-        
-        //Come back to this later---------------------------------------------------
+        doGetQueryRecord = async(_collection, item_looking_for,filtering_item) =>{
+          let querySnapshot = await this.db.collection(_collection).where(item_looking_for, '==',filtering_item).get()
+          console.log(querySnapshot)
+          // console.log(data.exists)
+          for(const doc of querySnapshot.docs){
+            console.log(doc.data())
+          }
+          
+        }
+        doGetRecordByID=async(_collection,id)=>{
+          let data = await this.db.collection('customers').doc(id).get()
+          console.log('one item',data.data())          
+        }
+        doGetTaskByCustomerID = async(_collection,id)=>{
+          let task_history = [] 
+          let tasks = await this.db.collection(`customers/${id}/tasks`).get()
+          for(const task of tasks.docs){
+            console.log('TASK----->',task.data())
+            let obj = task.data()
+            obj.id=task.id
+            task_history.push(obj)
+          }
+          this.setState({...this.state, tasks_of_current_customer: task_history})
+          return(task_history)
+        }
+          //Come back to this later---------------------------------------------------
         async doGetAllRecords(_collection){
           //get documents from 'customers' collection
           let querySnapshot = await this.db.collection(_collection).get()
@@ -91,23 +116,22 @@ export const AppContext = React.createContext()
             let data = doc.data();
             data['id'] = doc.id;
             data.task_history= []
-           
-            await this.db.collection(`customers/${doc.id}/tasks`).get().then(task=>{
+            arr.push(data)
+            // await this.db.collection(`customers/${doc.id}/tasks`).get().then(task=>{
              
-              for(const doc1 of task.docs){
-                let obj = doc1.data()
-                obj['task_id'] = doc1.id;
-                data.task_history.push(obj)
-              }               
-              arr.push(data)
+            //   for(const doc1 of task.docs){
+            //     let obj = doc1.data()
+            //     obj['task_id'] = doc1.id;
+            //     data.task_history.push(obj)
+            //   }               
+            //   arr.push(data)
              
-            })
+            // })
            
           }
           this.setState({...this.state, data:arr})       
         }
         
-        getOneRecord = (_collection, item_wanted) => this.db.collection(_collection).doc(item_wanted)
         checkState = async() =>{ await
           this.auth.onAuthStateChanged(function(user) {
             if (user){
@@ -123,10 +147,39 @@ export const AppContext = React.createContext()
           this.setState({...this.state, loading:true})
         }
         async loadFakeData(){
-          
+          const names =  [['Qabil','Fabiana'],['Fabiano','Qacha'],['Qadan','Fabiola'],['Fabrice','Qadir'],['Qadr','Fabunni'],['Facebook','Qamar']]
+          // let cust = this.db.collection("customers").doc()
+          // console.log('YEEET',cust.id)
+          for(let name of names){
+            let cust = this.db.collection("customers").doc()
+            let tasks = this.db.collection(`customers/${cust.id}/tasks`)
+            tasks.add({
+              start_date:firebase.firestore.Timestamp.fromDate(new Date("December 10, 1815")),
+              end_date:firebase.firestore.Timestamp.fromDate(new Date("December 12, 1815")),
+              charge:"$20.00",
+              task_desc:'cleaning',
+            })
+            tasks.add({
+              start_date:firebase.firestore.Timestamp.fromDate(new Date("August 20, 1830")),
+              end_date:firebase.firestore.Timestamp.fromDate(new Date("September 1, 1830")),
+              charge:"$100.00",
+              task_desc:'repair',
+            })         
+
+
+            cust.set({
+              first_name: name[0],
+              last_name: name[1],
+              phone_number: "123 321 1232",
+              email_address: 'san@fake.come',
+              last_in: firebase.firestore.Timestamp.fromDate(new Date("September 1, 1830")),
+              recent_task: 'repair'
+            })
+          }
         }
+
       async componentDidMount(){
-        
+        // this.loadFakeData()
         console.log('beta')
         await this.doGetAllRecords('customers')   
         console.log('gamma')
