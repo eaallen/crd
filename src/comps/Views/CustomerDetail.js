@@ -1,8 +1,8 @@
 import React from 'react'
 import { withFirebase } from '../Firebase'
 import { withRouter} from "react-router-dom";
-import { Table, Button } from 'react-bootstrap';
-import {TableRow} from './SubViews/TableRow'
+import { Button } from 'react-bootstrap';
+import TableRow from './SubViews/TableRow'
 class CustomerDetailBase extends React.Component{
     constructor(props){
         super(props)
@@ -87,7 +87,7 @@ class CustomerDetailBase extends React.Component{
                                 <div className="rTableHead">Date Recieved</div>
                                 <div className="rTableHead">Date Finished</div>
                                 <div className="rTableHead">Billing</div>
-                                <div className="rTableHead"></div>
+                                <div className="rTableHead">Action</div>
                             </div>
                         </div>
                 
