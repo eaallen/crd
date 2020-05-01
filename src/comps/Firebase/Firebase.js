@@ -117,17 +117,6 @@ export const AppContext = React.createContext()
             data['id'] = doc.id;
             data.task_history= []
             arr.push(data)
-            // await this.db.collection(`customers/${doc.id}/tasks`).get().then(task=>{
-             
-            //   for(const doc1 of task.docs){
-            //     let obj = doc1.data()
-            //     obj['task_id'] = doc1.id;
-            //     data.task_history.push(obj)
-            //   }               
-            //   arr.push(data)
-             
-            // })
-           
           }
           this.setState({...this.state, data:arr})       
         }
@@ -151,8 +140,11 @@ export const AppContext = React.createContext()
           // let cust = this.db.collection("customers").doc()
           // console.log('YEEET',cust.id)
           for(let name of names){
+            // make a customer instance
             let cust = this.db.collection("customers").doc()
+            //make data instance inside customer
             let tasks = this.db.collection(`customers/${cust.id}/tasks`)
+            //task data fir customer
             tasks.add({
               start_date:firebase.firestore.Timestamp.fromDate(new Date("December 10, 1815")),
               end_date:firebase.firestore.Timestamp.fromDate(new Date("December 12, 1815")),
@@ -164,16 +156,17 @@ export const AppContext = React.createContext()
               end_date:firebase.firestore.Timestamp.fromDate(new Date("September 1, 1830")),
               charge:"$100.00",
               task_desc:'repair',
-            })         
-
-
+            })    
+            //customer data
             cust.set({
               first_name: name[0],
               last_name: name[1],
               phone_number: "123 321 1232",
               email_address: 'san@fake.come',
               last_in: firebase.firestore.Timestamp.fromDate(new Date("September 1, 1830")),
-              recent_task: 'repair'
+              recent_task: 'repair',
+              notes: 'Nullam commodo eros ut commodo aliquam. Cras vestibulum accumsan bibendum. Morbi tristique massa a elit vehicula pellentesque. Nam iaculis posuere dui eu fermentum. Quisque in lectus leo. Aenean libero nunc, rutrum quis velit vel, tristique vulputate magna. Sed et lorem et lectus tempus dignissim.',
+              date_purchased: firebase.firestore.Timestamp.fromDate(new Date("December 26, 1777")),
             })
           }
         }
@@ -186,7 +179,7 @@ export const AppContext = React.createContext()
 
       }
         render(){
-          console.log('the state has changed me')
+          console.log('the state has changed me',this.state.data)
           if(!this.state.data){
             return(
               <div>

@@ -1,9 +1,10 @@
 import React from 'react'
 import {Nav, Navbar, NavDropdown,Button} from 'react-bootstrap'
-export default function Top(props){
+import {withFirebase} from '../Firebase'
+function TopBase(props){
     
     return(
-        <div className='bg-primary top'>
+        <div className='bg-primary '>
             <Navbar bg="primary" expand="lg">
             <Navbar.Brand href="#home">Custom Ring Design</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -25,3 +26,5 @@ export default function Top(props){
         </div>
     )
 }
+const Top = withFirebase(TopBase)
+export default Top
