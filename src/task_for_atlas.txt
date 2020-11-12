@@ -1,0 +1,10 @@
+Instructor Tools
+Local Submit
+collapse all 
+expand all
+grade preview (LOCAL grade)
+The ability to submit for someone else [student] (talk to connan)
+bulk copy sheet (fix a corupt workbook)
+capture history of response formula cells
+patch builder
+restore do it

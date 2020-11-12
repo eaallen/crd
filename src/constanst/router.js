@@ -5,3 +5,4 @@ export const HOME = '/AllCustomer';
 export const ACCOUNT = '/Account';
 export const DETAIL = '/CustomerDetail/:id';
 export const PASSWORD_FORGET = '/pw-forget';
+export const TESTING = '/Testing'

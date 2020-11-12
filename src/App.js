@@ -30,6 +30,9 @@ function App(props) {
             <Col>
               <Router>
                 <Switch>
+                  <Route path={ROUTE.TESTING}>
+                    <EditCustomer/>
+                  </Route>
                   <Route path='/EditCustomer/:id'>
                     <EditCustomer/>
                   </Route>
